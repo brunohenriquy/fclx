@@ -18,7 +18,9 @@ COPY . .
 RUN cd /go/pkg/mod/github.com/j178/tiktoken-go@v0.2.1/tiktoken-cffi && \
     cargo build --release
 
-RUN apt update && apt install -y protobuf-compiler && apt install -y protoc-gen-go
-RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+RUN apt update && apt install -y protobuf-compiler=3.12.4-1 && apt install -y protoc-gen-go=1.25.0+git20201208.160c747-1+b5
+RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2 && go install github.com/kyleconroy/sqlc/cmd/sqlc@v1.17.2
+
+#RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-arm64.tar.gz | tar xvz
 
 CMD [ "tail", "-f", "/dev/null" ]
